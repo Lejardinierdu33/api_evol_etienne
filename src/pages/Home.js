@@ -26,12 +26,6 @@ function Home() {
     tabMeal();
   }, []);
 
-
-  function changeBtn(sortMethod) {
-    if (sortMethod === true) {
-      return false
-  }}
-
   return (
     <div>
       <nav>
@@ -63,11 +57,8 @@ function Home() {
             <span>{rangeValue}</span>
           </div>
           <div className="container_alpha">
-            <button
-              onClick={(e) => setSortMethod(e.value) && changeBtn()}
-              defaultValue={sortMethod}
-            >
-              {sortMethod? "A - Z" : "Z - A"}
+            <button onClick={() => setSortMethod(!sortMethod)}>
+              {sortMethod ? "A - Z" : "Z - A"}
             </button>
           </div>
         </div>
@@ -82,22 +73,20 @@ function Home() {
                 meal.strIngredient1.includes(searchValue)
             )
             .sort((a, b) => {
-              if (sortMethod === true) {
+              if (sortMethod) {
                 if (a.strMeal < b.strMeal) {
                   return -1;
-                } else if (b.strMeal < a.strMeal) {
-                  return 1;
                 }
+                return 1;
               } else {
                 if (b.strMeal < a.strMeal) {
                   return -1;
-                } else if (a.strMeal < b.strMeal) {
-                  return 1;
                 }
+                return 1;
               }
             })
             .slice(0, rangeValue)
-            .map((meal, index) => <Card meal={meal} index={index} />)}
+            .map((meal, key) => <Card meal={meal} key={key} />)}
       </section>
     </div>
   );
