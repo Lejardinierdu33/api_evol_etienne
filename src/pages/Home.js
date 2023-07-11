@@ -24,7 +24,7 @@ function Home() {
 
   useEffect(() => {
     tabMeal();
-  }, []);
+  }, [searchValue]);
 
   return (
     <div>
