@@ -10,20 +10,21 @@ function Home() {
   const [mealTab, setMealTab] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
-  const tabMeal = async () => {
-    const options = {
-      method: "GET",
-      url: "https://www.themealdb.com/api/json/v1/1/search.php",
-      params: { s: searchValue },
-    };
-
-    const response = await axios.request(options);
-    console.log(response.data.meals);
-    setMealTab(response.data.meals);
-  };
+  
 
   useEffect(() => {
-    tabMeal();
+    const tabMeal = async () => {
+      const options = {
+        method: "GET",
+        url: "https://www.themealdb.com/api/json/v1/1/search.php",
+        params: { s: searchValue },
+      };
+  
+      const response = await axios.request(options);
+      console.log(response.data.meals);
+      setMealTab(response.data.meals);
+    };
+    tabMeal()
   }, [searchValue]);
 
   return (
@@ -37,7 +38,7 @@ function Home() {
             defaultValue={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <button onClick={() => tabMeal()}>
+          <button>
             <FaSearch />
           </button>
         </div>
